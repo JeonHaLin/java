@@ -99,7 +99,12 @@ public class DoCalculator {
             System.out.println(e.getMessage());
         }
         finally {
-                scan.close();
+            scan.close();
         }
     }
 }
+/*
+1. 사칙연산 아닌 문자 넣었을 때
+2. 잘못된 입력이 들어왔을 때
+3. 0으로 나누려고 할 때
+ */
