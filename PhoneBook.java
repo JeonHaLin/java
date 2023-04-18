@@ -16,6 +16,11 @@ public class PhoneBook {
         try {
             System.out.print("인원수>>");
             int num = scan.nextInt();
+            if (num <= 0){
+                System.out.println("잘못된 접근입니다.");
+                System.out.println("프로그램을 종료합니다.");
+                System.exit(0);
+            }
             Phone[] myPhone = new Phone[num];
             for (int i = 0; i < num; i++) {
                 System.out.print("이름과 전화번호(이름과 번호는 빈 칸없이 입력)>>");
@@ -54,6 +59,7 @@ public class PhoneBook {
     }
 }
 /*
-검색할 이름에 숫자가 들어가면 오류?
-아니 이걸 메소드로 다 만들으라고??? 갈아 엎어???
+1. 인원수를 0 이하의 음수로 입력했을 때
+2.
+3.
  */
