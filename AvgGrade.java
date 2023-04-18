@@ -13,53 +13,53 @@ class Grade {
         this.english = english;
     }
 
-    public int getGrade() {
+    public int[] getGrade() {
+        int [] temp = new int[3];
         Scanner scan = new Scanner(System.in);
         while (true) {
             try {
-                int theGrade = scan.nextInt();
-                if (theGrade < 0) {
+                this.math = scan.nextInt();
+                this.science = scan.nextInt();
+                this.english = scan.nextInt();
+                if (this.math < 0 || this.science < 0 || this.english < 0) {
                     System.out.println("0 이상의 정수만 입력 가능합니다.");
-                    System.out.print("해당 과목의 점수를 다시 입력하세요>> ");
+                    System.out.print("수학, 과학, 영어 순으로 3개의 점수 입력>>");
                 } else {
-                    return theGrade;
+                    temp[0] = this.math;
+                    temp[1] = this.science;
+                    temp[2] = this.english;
+                    return temp;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("정수만 입력 가능한 프로그램입니다.");
-                System.out.print("해당 과목의 점수를 다시 입력하세요>> ");
+                System.out.print("수학, 과학, 영어 순으로 3개의 점수 입력>>");
                 scan.next();
             }
         }
     }
 
     public int average() {
-        return (math + science + english) / 3;
+        return (this.math + this.science + this.english) / 3;
     }
 
 }
 
-public class AvgGrade{
-    public static void main(String[] args){
+public class AvgGrade {
+    public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
-        System.out.print("수학, 과학, 영어 순으로 3개의 점수 입력>> ");
+        System.out.print("수학, 과학, 영어 순으로 3개의 점수 입력>>");
         Grade scanGrade = new Grade();
-        try {
-            int math = scanGrade.getGrade();
-            int science = scanGrade.getGrade();
-            int english = scanGrade.getGrade();
-            //
 
-            Grade myGrade = new Grade (math, science, english);
-            System.out.println("평균은 " + myGrade.average());
+        int[] tempGrade = scanGrade.getGrade();
 
-            scan.close();
-        }
-        catch(InputMismatchException e){
-            System.out.println("정수만 입력 가능한 프로그램입니다.");
-            System.out.println("프로그램을 종료합니다.");
-            System.exit(0);
-        }
+        Grade myGrade = new Grade(tempGrade[0], tempGrade[1], tempGrade[2]);
+        System.out.println("평균은 " + myGrade.average());
 
+        scan.close();
     }
 }
+/*
+1. 과목 점수에 음의 정수가 입력될 때
+2. 과목 점수에 정수가 아닌 데이터가 입력될 때
+ */
