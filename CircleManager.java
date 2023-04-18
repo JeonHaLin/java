@@ -21,9 +21,14 @@ public class CircleManager {
         for (int i = 0; i < 3; i++){
             try {
                 System.out.print("x, y, radius >>");
-                double x = scan.nextDouble();
-                double y = scan.nextDouble();
-                int radius = scan.nextInt();
+                    double x = scan.nextDouble();
+                    double y = scan.nextDouble();
+                    int radius = scan.nextInt();
+                    if (radius <= 0){
+                        System.out.println("잘못된 입력입니다.");
+                        System.out.println("프로그램을 종료합니다.");
+                        System.exit(0);
+                }
                 c[i] = new Circle(x, y, radius);
             }
             catch(InputMismatchException e){
