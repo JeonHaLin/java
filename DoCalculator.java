@@ -1,105 +1,59 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-class Add{
-    int a, b;
-    public Add(){}
-    public void setValue(int a, int b){
-        this.a = a;
-        this.b = b;
-    }
-    public int calculate(){
-        return a + b;
-    }
-}
-class Sub{
-    int a, b;
-    public Sub(){}
-    public void setValue(int a, int b){
-        this.a = a;
-        this.b = b;
-    }
-    public int calculate(){
-        return a - b;
-    }
-}
-class Mul{
-    int a, b;
-    public Mul(){}
-    public void setValue(int a, int b){
-        this.a = a;
-        this.b = b;
-    }
-    public int calculate(){
-        return a * b;
-    }
-}
-class Div{
-    int a, b;
-    public Div(){}
-    public void setValue(int a, int b){
-        this.a = a;
-        this.b = b;
-    }
-    public int calculate() {
-        return a / b;
-    }
-}
+class Phone{
+    String name, tel;
 
-public class DoCalculator {
+    public Phone(String name, String tel){
+        this.name = name;
+        this.tel = tel;
+    }
+
+}
+public class PhoneBook {
     public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
-
-        System.out.print("두 정수와 연산자를 입력하시오>>");
         try {
-            int a = scan.nextInt();
-            int b = scan.nextInt();
-            String c = scan.next();
+            System.out.print("인원수>>");
+            int num = scan.nextInt();
+            Phone[] myPhone = new Phone[num];
+            for (int i = 0; i < num; i++) {
+                System.out.print("이름과 전화번호(이름과 번호는 빈 칸없이 입력)>>");
+                String name = scan.next();
+                String tel = scan.next();
+                myPhone[i] = new Phone(name, tel);
+            }
 
-            switch (c) {
-                case "+": {
-                    Add addNum = new Add();
-                    addNum.setValue(a, b);
-                    int answer = addNum.calculate();
-                    System.out.println(answer);
-                    break;
+            System.out.println("저장되었습니다...");
+
+            while (true) {
+                System.out.print("검색할 이름>>");
+                String data = scan.next();
+                int index = -1;
+                for (int i = 0; i < myPhone.length; i++) {
+                    if (data.equals(myPhone[i].name))
+                        index = i;
                 }
-                case "-": {
-                    Sub subNum = new Sub();
-                    subNum.setValue(a, b);
-                    int answer = subNum.calculate();
-                    System.out.println(answer);
-                    break;
-                }
-                case "*": {
-                    Mul mulNum = new Mul();
-                    mulNum.setValue(a, b);
-                    int answer = mulNum.calculate();
-                    System.out.println(answer);
-                    break;
-                }
-                case "/": {
-                    if(b==0){
-                        System.out.println("0으로는 나눌 수 없습니다.");
-                        System.out.println("프로그램을 종료합니다.");
-                        break;
-                    }
-                    Div divNum = new Div();
-                    divNum.setValue(a, b);
-                    int answer = divNum.calculate();
-                    System.out.println(answer);
-                    break;
-                }
-                default:
-                    System.out.println("잘못된 입력입니다.");
+                if (data.equals("그만")) {
                     System.out.println("프로그램을 종료합니다.");
-                    break;
+                    System.exit(0);
+                }
+                if (index == -1) {
+                    System.out.println(data + " 이(가) 없습니다.");
+                } else {
+                    System.out.println(data + "의 번호는 " + myPhone[index].tel + "입니다.");
+                }
+
             }
         }
         catch(InputMismatchException e){
-            System.out.println("잘못된 입력입니다.");
+            System.out.println("잘못된 접근입니다.");
             System.out.println("프로그램을 종료합니다.");
             System.exit(0);
         }
     }
 }
+/*
+검색할 이름에 숫자가 들어가면 오류?
+아니 이걸 메소드로 다 만들으라고??? 갈아 엎어???
+ */
