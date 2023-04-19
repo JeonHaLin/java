@@ -3,7 +3,7 @@ import java.util.Scanner;
 class OperateSystem{
     public OperateSystem(){}
     String[][]arr=new String[3][11];
-    public void clearSeats(){
+    public void clearSeats(){   // reset seats
         arr[0][0] = "S";
         arr[1][0] = "A";
         arr[2][0] = "B";
@@ -13,7 +13,7 @@ class OperateSystem{
             }
         }
     }
-    public int inputSeatNum(int seatType){
+    public int inputSeatNum(int seatType){   // input seat number
         Scanner scan = new Scanner(System.in);
 
         while (true) {
@@ -31,7 +31,7 @@ class OperateSystem{
         }
     }
 
-    public int inputSeatType(){
+    public int inputSeatType(){   //input seat type
         while(true){
             Scanner scan = new Scanner(System.in);
             System.out.print("좌석구분 S(1), A(2), B(3)>>");
@@ -43,10 +43,10 @@ class OperateSystem{
             else return seatType;
         }
     }
-    public void addPerson(int seatType, String name, int seatNum){
+    public void addPerson(int seatType, String name, int seatNum){  // add name
         arr[seatType-1][seatNum] = name;
     }
-    public void delPerson(String name, int seatType){
+    public void delPerson(String name, int seatType){   // remove name
         for (int i = 1; i < 11; i++){
             if (arr[seatType-1][i].equals(name)) {
                 arr[seatType - 1][i] = "---";
@@ -54,14 +54,14 @@ class OperateSystem{
         }
     }
 
-    public void showSeats(int seatType){
+    public void showSeats(int seatType){    // output the type of seats
         for (int i = 0; i < 11; i++){
             System.out.print(arr[seatType-1][i]+" ");
         }
         System.out.println();
     }
 
-    public void showAll(){
+    public void showAll(){  // output every seats
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 11; j++){
                 System.out.print(arr[i][j]+" ");
@@ -71,7 +71,7 @@ class OperateSystem{
         System.out.println("<<<조회를 완료하였습니다>>>");
     }
 
-    public boolean isEmpty(int seatType){
+    public boolean isEmpty(int seatType){   // if the type of seats are empty
         int temp = 0;
         for (int i = 1; i < 11; i++){
             if (arr[seatType-1][i].equals("---"))
@@ -80,7 +80,7 @@ class OperateSystem{
         return temp == 10;
     }
 
-    public boolean isFull(int seatType){
+    public boolean isFull(int seatType){    // if the type of seats are full
         int temp = 0;
         for (int i = 1; i < 11; i++){
             if (arr[seatType-1][i].equals("---"))
@@ -88,7 +88,8 @@ class OperateSystem{
         }
         return temp == 0;
     }
-    public boolean isThere(int seatType, String name){
+    public boolean isThere(int seatType, String name){  // if there is the name
+        // if there's the name in the type of seats. 
         int temp = 0;
         for (int i = 1; i < 11; i++){
             if (arr[seatType-1][i].equals(name))
@@ -97,6 +98,7 @@ class OperateSystem{
         return temp != 0;
     }
     public boolean alreadyReserved(int seatType, int seatNum){
+        // if the seat is already booked
         return !arr[seatType-1][seatNum].equals("---");
     }
 }
@@ -109,25 +111,27 @@ public class ReservationSystem {
         os.clearSeats();
 
         System.out.println("명품콘서트홀 예약 시스템입니다.");
+        
         try {
             while (true) {
                 System.out.print("예약:1, 조회:2, 취소:3, 끝내기:4>>");
                 int menu = scan.nextInt();
 
-                switch (menu){
-                    case 1:{
+                switch (menu) {
+                    case 1: {    // reservation
                         int seatType = os.inputSeatType();
                         os.showSeats(seatType);
 
                         System.out.print("이름>>");
                         String name = scan.next();
                         int seatNum = os.inputSeatNum(seatType);
-                        if (seatNum == 0){
+
+                        if (seatNum == 0) {
                             System.out.println("이미 매진된 좌석입니다.");
                             System.out.println("메인 메뉴로 돌아갑니다.");
                             break;
                         }
-                        if (os.isFull(seatType)){
+                        if (os.isFull(seatType)) {
                             System.out.println("전 석 매진입니다.");
                             System.out.println("메인메뉴로 돌아갑니다.");
                             break;
@@ -136,14 +140,15 @@ public class ReservationSystem {
                         os.addPerson(seatType, name, seatNum);
                         break;
                     }
-                    case 2:{
+                    case 2: {    // check
                         os.showAll();
                         break;
                     }
-                    case 3:{
+                    case 3: {    // cancel
                         int seatType = os.inputSeatType();
                         os.showSeats(seatType);
-                        if (os.isEmpty(seatType)){
+
+                        if (os.isEmpty(seatType)) {
                             System.out.println("취소할 수 있는 좌석이 없습니다.");
                             System.out.println("메인메뉴로 돌아갑니다.");
                             break;
@@ -151,15 +156,17 @@ public class ReservationSystem {
 
                         System.out.print("이름>>");
                         String name = scan.next();
-                        if(!os.isThere(seatType, name)){
+
+                        if (!os.isThere(seatType, name)) {
                             System.out.println("해당 이름이 없습니다.");
                             System.out.println("메인 메뉴로 돌아갑니다.");
                         }
                         os.delPerson(name, seatType);
                         break;
                     }
-                    case 4:
+                    case 4: { // terminate the system
                         System.exit(0);
+                    }
                     default:{
                         System.out.println("잘못된 접근입니다. 다시 입력하세요.");
                         break;
@@ -167,12 +174,12 @@ public class ReservationSystem {
                 }
             }
         }
-        catch(InputMismatchException e){
+        catch(InputMismatchException e){    //if there's input of wrong type  
             System.out.println("잘못된 접근입니다.");
             System.out.println("시스템을 종료합니다.");
             System.exit(0);
         }
-        finally {
+        finally { 
             scan.close();
         }
     }
