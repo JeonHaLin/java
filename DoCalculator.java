@@ -1,5 +1,5 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.lang.*;
+import java.util.*;
 
 class Add{
     long a, b;
@@ -96,15 +96,15 @@ public class DoCalculator {
             System.out.println("0으로는 나눌 수 없습니다.");
         }
         catch(IllegalArgumentException e){
-            System.out.println(e.getMessage());
+            System.out.println("잘못된 입력입니다.");
         }
         finally {
-            scan.close();
+                scan.close();
         }
     }
 }
 /*
-1. 사칙연산 아닌 문자 넣었을 때
-2. 잘못된 입력이 들어왔을 때
-3. 0으로 나누려고 할 때
+1. 0으로 나누려고 할 때
+2. 올바르지 않은 타입의 데이터를 입력할 때
+3. IllegalArgumentException
  */
